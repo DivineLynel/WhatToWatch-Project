@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>What To Watch</title>
+</head>
+<body>
+    <header>   
+      <div class="logo">
+        <img src="https://static.vecteezy.com/system/resources/previews/009/143/764/non_2x/wtw-letter-logo-design-with-polygon-shape-wtw-polygon-and-cube-shape-logo-design-wtw-hexagon-logo-template-white-and-black-colors-wtw-monogram-business-and-real-estate-logo-vector.jpg" alt="Logo brand wTw">
+      </div>
+     <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('catalog') }}">Catalog</a></li>
+            <li><a href="{{ url_for('account') }}">{{ 'Profile' if current_user else 'Account' }}</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+     </nav>
+    </header>
+
+    <section id="secao1">
+     <h1 id="title">What to Watch</h1>
+     <div class="Inicio">
+         <h2 id="subtitulo1">Feeling Lost?</h2>
+         <p>This platform was built for anyone<br>
+            struggling to find something to watch.<br>
+            If you keep scrolling through endless<br> 
+            titles and nothing catches your eye,<br>
+            you've come to the right place!</p>
+        <!--<button> Random <img src="https://images.unsplash.com/photo-1650024520252-14bdf7a3f312?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8RDIwfGVufDB8fDB8fHww" alt="A D20 image" width="100"></button>  
+     -->
+    </div>
+    </section>
+
+
+    <section id="secao2">
+        <h2 id="titulo2">Here are all you could have asked</h2>
+        
+        <form action="/search" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <label for="user-query"></label>
+            <input type="text" id="user-query" name="search_movie" placeholder="Search" class="search-input" value="{{ query or '' }}">
+        </form>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        {% if results is defined %}
+            <div class="results">
+                {% for result in results %}
+                    {% if result.media_type in ['movie', 'tv'] %}
+                    <a class="result-card" href="{{ url_for('details', media_type=result.media_type, item_id=result.id) }}">
+                        {% if result.poster_path %}
+                            <img src="https://image.tmdb.org/t/p/w342{{ result.poster_path }}" alt="Poster for {{ result.title or result.name }}">
+                        {% else %}
+                            <div class="poster-placeholder"><strong>NO IMAGE</strong></div>
+                        {% endif %}
+                        <div class="result-card-content">
+                            <span class="media-type">{{ 'Series' if result.media_type == 'tv' else 'Movie' }}</span>
+                            <h3>{{ result.title or result.name }}</h3>
+                            <p>{{ result.overview or 'No description available.' }}</p>
+                        </div>
+                    </a>
+                    {% endif %}
+                {% else %}
+                    <p>No results found.</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="generos">
+            {% for genre in genres or [] %}
+                <a class="genre-button" href="{{ url_for('catalog', genre=genre.id) }}">{{ genre.name }}</a>
+            {% endfor %}
+        </div>
+
+        
+    </section>
+
+    <footer class="site-footer" id="about">
+        <div class="footer-grid">
+            <section class="about">
+                <p>Hello to the end, this was a website that i made alone i hope you liked. It all started with an idea to create something that would help me find a wide variety of movies, series, and anime. I wanted to be able to organize them by genre, use advanced search options, and more, making it quick and easy to find something to watch and enjoy. </p>
+            </section>
+            <section class="footer-column" id="account">
+                <h2>Contact</h2>
+                <p class="editable-contact">Add your contact details here.</p><!-- have to think about -->
+                <p class="editable-contact">Email: your-email@example.com</p><!-- make a new account for this website -->
+                <p class="editable-contact">Social: add your link here</p><!-- discord and X -->
+            </section>
+            <section class="footer-column">
+                <h2>Credits &amp; Terms</h2>
+                <a class="tmdb-logo-link" href="https://www.themoviedb.org/about/logos-attribution" target="_blank" rel="noopener noreferrer" aria-label="TMDB logo attribution">
+                    <img class="tmdb-logo" src="https://www.themoviedb.org/assets/v4/logos/v2/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg" alt="The Movie Database TMDB">
+                </a>
+                <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+                <p>Movie information and images are provided by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDB</a>.</p>
+                <p><a href="https://www.themoviedb.org/terms-of-use" target="_blank" rel="noopener noreferrer">TMDB Terms of Use</a> apply to this content.</p>
+            </section>
+        </div>
+        <p class="footer-bottom">&copy; 2026 What To Watch</p>
+    </footer>
+</body>
+</html>

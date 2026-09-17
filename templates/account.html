@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Profile | What To Watch</title>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="https://static.vecteezy.com/system/resources/previews/009/143/764/non_2x/wtw-letter-logo-design-with-polygon-shape-wtw-polygon-and-cube-shape-logo-design-wtw-hexagon-logo-template-white-and-black-colors-wtw-monogram-business-and-real-estate-logo-vector.jpg" alt="Logo brand wTw"></div>
+        <nav><ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('catalog') }}">Catalog</a></li>
+            <li><a href="{{ url_for('account') }}">Profile</a></li>
+            <li><a href="{{ url_for('home') }}#about">About</a></li>
+        </ul></nav>
+    </header>
+    <main class="account-page">
+        <section class="account-heading">
+            <p class="media-type">YOUR ACCOUNT</p>
+            <h1>{{ user['username'] }}'s profile</h1>
+            <p>{{ user['email'] }}</p>
+            <a class="account-link" href="{{ url_for('logout') }}">Log out</a>
+        </section>
+        {% for action_name in ['favorite', 'watched', 'watch_later'] %}
+            <section class="account-list">
+                <h2>{{ action_name.replace('_', ' ').title() }}</h2>
+                <div class="account-items">
+                    {% for item in actions if item['action'] == action_name %}
+                        <a class="account-item" href="{{ url_for('details', media_type=item['media_type'], item_id=item['title_id']) }}">
+                            {% if item['poster_path'] %}<img src="https://image.tmdb.org/t/p/w185{{ item['poster_path'] }}" alt="Poster for {{ item['title'] }}">{% endif %}
+                            <span>{{ item['title'] }}</span>
+                        </a>
+                    {% else %}
+                        <p class="empty-list">Nothing here yet.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endfor %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,575 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+html, body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar, .generos::-webkit-scrollbar {
+    display: none;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    color: white;
+    flex-wrap: nowrap;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    width: min(1100px, 92%);
+    margin: 2rem auto;
+}
+
+.result-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: inherit;
+    background: rgba(0, 0, 0, 0.567);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+
+
+.result-card:hover { 
+    transform: translateY(-4px); 
+    background: rgba(0, 0, 0, 0.8); 
+}
+
+.result-card img, .poster-placeholder { 
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover; 
+}
+
+.poster-placeholder {
+    display: grid;
+    place-items: center;
+    background: #DDB892; 
+}
+
+.result-card-content {
+    padding: 1rem;
+}
+
+.result-card h3 {
+    margin: 0.35rem 0;
+}
+
+.result-card p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+}
+
+.media-type, .details-meta {
+    color: #DDB892; 
+    font-size: 0.85rem; 
+}
+
+.details-page {
+    width: min(1000px, 92%); 
+    margin: 2rem auto; 
+}
+
+.back-link { 
+    color: #5a5a5a;
+    text-decoration: none;
+}
+
+.back-link:hover { 
+    color: #580000;
+    text-decoration: none; 
+}
+
+.details-panel { 
+    display: flex; 
+    gap: 2rem; 
+    margin-top: 1.5rem; 
+    padding: 2rem; 
+    background: #9C6644; 
+    border-radius: 8px; 
+}
+
+.details-poster { 
+    width: min(300px, 35%); 
+    height: fit-content; 
+    object-fit: cover; 
+}
+
+.details-content { 
+    max-width: 650px; 
+}
+
+.details-content h1 { 
+    margin: 0.5rem 0; 
+}
+
+.details-content h2 { 
+    margin: 1.5rem 0 0.5rem; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.details-content p { 
+    line-height: 1.5; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.genres { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 0.5rem; 
+    margin: 1rem 0 2rem; 
+}
+
+.genres span { 
+    padding: 0.35rem 0.65rem; 
+    background: rgba(255, 255, 255, 0.15); 
+    border-radius: 999px; 
+}
+
+
+
+
+@media (max-width: 650px) {
+    .details-panel { flex-direction: column; }
+    .details-poster { width: min(260px, 100%); }
+}
+
+
+header{
+    display: flex;
+    background-color: black;
+    padding: 1rem 1rem;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 60px;
+    flex-wrap: nowrap;
+}
+
+.logo{
+    display: flex;
+    height: 60px; /*200%*/
+    width: 60px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+ul{
+    display: flex;
+    gap: 2rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 2rem;
+}
+
+li {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+li a{
+    display: flex;
+    text-decoration: none;
+    color: white;
+
+}
+
+li a:hover{
+    color: #580000;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 500px){
+    header{
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    nav{
+        margin: 0 10px;
+    }
+}
+
+/* COMEÇO DO SITE LOGO EMBAIXO DO HEADER*/
+/* SEÇÃO 1 */
+#secao1{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    gap: 15px;
+    background-color: #7F5539;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    background-image: linear-gradient(to right, black 30%, transparent 100%),
+    url('Assets/SaladecinemaMarrom-1920x1080.jpg');
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+#title{
+    font-size: 3.5rem;
+    margin-top: -50px;
+    padding: 1rem;
+    padding-bottom: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #DDB892;
+}
+
+#subtitulo1{
+    padding-bottom: 1rem;
+}
+
+.Inicio{
+    display: flex;
+    padding-left: 1rem;
+    color: #5a5a5a;
+    font-family: Arial, Helvetica, sans-serif;
+    flex-direction: column;
+}
+
+/* SEÇÃO 2 VAMO BORA*/
+/* LOGO EMBAIXO DA IMAGEM */
+
+#secao2{
+    display: flex;
+    background-color: black;
+    flex-direction: column;
+    align-items: center;
+}
+
+#titulo2{
+    padding: 3rem;
+    padding-bottom: 1rem;
+    font-size: 2.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #9C6644;
+    flex-wrap: nowrap;
+}
+
+
+form {
+    width: min(500px, 90vw);
+}
+
+.search-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #f5f5f7;
+    border: 1px solid #e5e5ea;
+    border-radius: 24px; /* Fully rounded capsule look */
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+}
+
+
+
+.generos{
+    display: flex;
+    width: 100%;
+    gap: 0.75rem;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0.75rem 1rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    background-color: black;
+}
+
+.genre-button{
+    flex: 0 0 auto;
+    background-color: #9C6644;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.genre-button:hover, .genre-button.active{
+    background-color: #7F5539;
+}
+
+.catalog-page {
+    width: min(1200px, 94%);
+    margin: 2rem auto 4rem;
+}
+
+.catalog-page h1, .catalog-page h2 {
+    margin: 1rem 0;
+    color: #DDB892;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.catalog-genres {
+    margin: 1rem 0 2rem;
+}
+
+.catalog-results {
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.pagination a {
+    padding: 0.65rem 1rem;
+    color: white;
+    background: #9C6644;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background: #7F5539;
+}
+
+.simple-header {
+    justify-content: center;
+}
+
+.brand-link {
+    color: #DDB892;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.auth-page, .account-page {
+    width: min(1000px, 92%);
+    margin: 3rem auto 5rem;
+}
+
+.auth-page {
+    display: grid;
+    place-items: center;
+    min-height: 65vh;
+}
+
+.auth-panel {
+    width: min(430px, 100%);
+    padding: 2.5rem;
+    background: #9C6644;
+    border-radius: 8px;
+}
+
+.auth-panel h1, .account-heading h1 {
+    margin: 0.4rem 0 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.auth-form {
+    display: grid;
+    gap: 0.55rem;
+    width: 100%;
+}
+
+.auth-form label {
+    margin-top: 0.5rem;
+}
+
+.auth-form input {
+    padding: 0.75rem;
+    border: 1px solid #e5e5ea;
+    border-radius: 5px;
+}
+
+.auth-form button, .account-link, .login-action {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    color: white;
+    background: #580000;
+    border: 0;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.auth-panel a, .account-heading a {
+    color: #DDB892;
+}
+
+.form-error {
+    padding: 0.75rem;
+    color: #580000;
+    background: #DDB892;
+    border-radius: 5px;
+}
+
+.account-heading {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(221, 184, 146, 0.35);
+}
+
+.account-list {
+    margin-top: 2rem;
+}
+
+.account-list h2 {
+    color: #DDB892;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.account-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.account-item {
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+    gap: 0.5rem;
+    color: white;
+    text-decoration: none;
+}
+
+.account-item img {
+    width: 140px;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.empty-list {
+    color: #8f7b6b;
+}
+
+.title-actions {
+    display: flex;
+    gap: 0.85rem;
+    margin-top: 1.5rem;
+}
+
+.title-actions form {
+    width: auto;
+}
+
+.round-action {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    color: white;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid #DDB892;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.round-action:hover, .round-action.selected {
+    color: #160f0b;
+    background: #DDB892;
+}
+
+.login-action {
+    background: #7F5539;
+}
+
+.site-footer {
+    padding: 3rem max(2rem, 6vw) 1.5rem;
+    color: #f4e7d7;
+    background: #160f0b;
+    border-top: 1px solid #9C6644;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.25fr;
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about, .footer-column {
+    min-width: 0;
+}
+
+.about p, .footer-column p {
+    margin: 0 0 0.8rem;
+    color: #cdb9a5;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.about p {
+    max-width: 560px;
+}
+
+.footer-column h2 {
+    margin: 0 0 1rem;
+    color: #DDB892;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tmdb-logo-link {
+    display: inline-block;
+    margin-bottom: 0.85rem;
+}
+
+.tmdb-logo {
+    display: block;
+    width: min(120px, 45%);
+    height: auto;
+    opacity: 0.72;
+}
+
+.footer-column a {
+    color: #DDB892;
+}
+
+.footer-column a:hover {
+    color: white;
+}
+
+.editable-contact {
+    color: #DDB892 !important;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 2rem auto 0;
+    padding-top: 1rem;
+    color: #8f7b6b;
+    border-top: 1px solid rgba(221, 184, 146, 0.25);
+    font-size: 0.8rem;
+}
+
+@media (max-width: 750px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}

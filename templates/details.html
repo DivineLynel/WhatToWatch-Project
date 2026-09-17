@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{{ title.title or title.name }} | What To Watch</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://static.vecteezy.com/system/resources/previews/009/143/764/non_2x/wtw-letter-logo-design-with-polygon-shape-wtw-polygon-and-cube-shape-logo-design-wtw-hexagon-logo-template-white-and-black-colors-wtw-monogram-business-and-real-estate-logo-vector.jpg" alt="Logo brand wTw">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('catalog') }}">Catalog</a></li>
+                <li><a href="{{ url_for('account') }}">{{ 'Profile' if current_user else 'Account' }}</a></li>
+                <li><a href="{{ url_for('home') }}#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="details-page">
+        <a class="back-link" href="{{ url_for('home') }}">&larr; Back to search</a>
+        <section class="details-panel">
+            {% if title.poster_path %}
+                <img class="details-poster" src="https://image.tmdb.org/t/p/w500{{ title.poster_path }}" alt="Poster for {{ title.title or title.name }}">
+            {% endif %}
+            <div class="details-content">
+                <span class="media-type">{{ 'Series' if title.media_type == 'tv' else 'Movie' }}</span>
+                <h1>{{ title.title or title.name }}</h1>
+                <p class="details-meta">{{ title.release_date or title.first_air_date or 'Release date unknown' }} &middot; Rating {{ title.vote_average|round(1) }}/10</p>
+                <div class="genres">
+                    {% for genre in title.genres or [] %}<span>{{ genre.name }}</span>{% endfor %}
+                </div>
+                <h2>Overview</h2>
+                <p class="text">{{ title.overview or 'No description available.' }}</p>
+                <div class="title-actions">
+                    {% if current_user %}
+                        {% for action_name, label, icon in [('favorite', 'Favorite', '♥'), ('watched', 'Watched', '✓'), ('watch_later', 'Watch later', '+')] %}
+                            <form method="post" action="{{ url_for('title_action', media_type=title.media_type, item_id=title.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                <input type="hidden" name="action" value="{{ action_name }}">
+                                <input type="hidden" name="title" value="{{ title.title or title.name }}">
+                                <input type="hidden" name="poster_path" value="{{ title.poster_path or '' }}">
+                                <button class="round-action{% if action_name in actions %} selected{% endif %}" type="submit" title="{{ label }}" aria-label="{{ label }}">{{ icon }}</button>
+                            </form>
+                        {% endfor %}
+                    {% else %}
+                        <a class="login-action" href="{{ url_for('login') }}">Log in to save this title</a>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="site-footer" id="about">
+        <div class="footer-grid">
+            <section class="about">
+                <p>Hello to the end, this was a website that i made alone i hope you liked. It all started with an idea to create something that would help me find a wide variety of movies, series, and anime. I wanted to be able to organize them by genre, use advanced search options, and more, making it quick and easy to find something to watch and enjoy. </p>
+            </section>
+            <section class="footer-column" id="account">
+                <h2>Contact</h2>
+                <p class="editable-contact">Add your contact details here.</p>
+                <p class="editable-contact">Email: your-email@example.com</p>
+                <p class="editable-contact">Social: add your link here</p>
+            </section>
+            <section class="footer-column">
+                <h2>Credits &amp; Terms</h2>
+                <a class="tmdb-logo-link" href="https://www.themoviedb.org/about/logos-attribution" target="_blank" rel="noopener noreferrer" aria-label="TMDB logo attribution">
+                    <img class="tmdb-logo" src="https://www.themoviedb.org/assets/v4/logos/v2/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg" alt="The Movie Database TMDB">
+                </a>
+                <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+                <p>Movie information and images are provided by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDB</a>.</p>
+                <p><a href="https://www.themoviedb.org/terms-of-use" target="_blank" rel="noopener noreferrer">TMDB Terms of Use</a> apply to this content.</p>
+            </section>
+        </div>
+        <p class="footer-bottom">&copy; 2026 What To Watch</p>
+    </footer>
+</body>
+</html>
